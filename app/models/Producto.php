@@ -31,7 +31,7 @@ catch(Exception $e){
 }
 }
 
-public function registrar($classificacion, $marca, $descripcion, $garantia, $ingreso, $cantidad):int{
+public function registrar($registro = []):int{
   try{
     //los comodines, poseen indices (arreglos)
     $sql="
@@ -44,12 +44,12 @@ $consulta = $this->pdo->prepare($sql);
 //3 La consulta lleva comodines, pasamos los datos en execute()
 $consulta->execute(
 array(
-  $classificacion,
-  $marca,
-  $descripcion,
-  $garantia,
-  $ingreso,
-  $cantidad
+$registro ['classificacion'],
+$registro ['marca'],
+$registro ['descripcion'],
+$registro ['garantia'],
+$registro ['ingreso'],
+$registro ['cantidad']
 )
 
 );
