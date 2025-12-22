@@ -5,7 +5,7 @@ class Conexion{
   //Atributos
   private $servidor ="localhost";
   private $puerto = "3306";
-  private $baseDatos = "tiendaperu";
+  private $baseDatos = "rescate";
   private $usuario = "root";
   private $clave = "";
 

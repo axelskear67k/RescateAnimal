@@ -2,7 +2,7 @@
 //1. Acceder a la clase conexion
 require_once 'Conexion.php';
 //2 El provedor heredara las funcionalidad de la clase conexion
-class Proveedor extends Conexion{
+class personas extends Conexion{
 //3. Creamos un atributo que guardara la conexion
 private $pdo;
 
@@ -16,8 +16,7 @@ public function listar(){
   try{
     $sql = "
     SELECT
-    id,razonsocial,ruc,telefono,origen,contacto,confianza
-    FROM proveedores
+    id,clasificacion,nombre, apellidos, telefono, direccion, ingreso, created, updated
     ORDER BY id DESC
     ";
     $consulta = $this->pdo->prepare($sql);
@@ -34,19 +33,19 @@ public function listar(){
 public function registrar($registro = []):int{
   try{
     $sql="
-    INSERT INTO proveedores
-    (razonsocial, ruc, telefono, origen, contacto, confianza) VALUES
+    INSERT INTO personas
+    (clasificacion,nombre, apellidos, telefono, direccion, ingreso) VALUES
     (?,?,?,?,?,?)
     ";
     $consulta = $this->pdo->prepare($sql);
     $consulta->execute(
       array(
-        $registro['razonsocial'],
-        $registro['ruc'],
+        $registro['clasificacion'],
+        $registro['nombre'],
+        $registro['apellidos'],
         $registro['telefono'],
-        $registro['origen'],
-        $registro['contacto'],
-        $registro['confianza']
+        $registro['direccion'],
+        $registro['ingreso']
       )
     );
     return $consulta->rowCount();
@@ -60,25 +59,25 @@ public function registrar($registro = []):int{
 public function actualizar($registro = []):int{
   try{
     $sql="
-    UPDATE proveedores SET
-    razonsocial = ?,
-    ruc = ?,
+    UPDATE personas SET
+    clasificacion = ?,
+    nombre = ?,
+    apellidos = ?,
     telefono = ?,
-    origen = ?,
-    contacto = ?,
-    confianza = ?,
+    direccion = ?,
+    ingreso = ?,
     updated = NOW()
     WHERE id = ?
     ";
     $consulta = $this->pdo->prepare($sql);
     $consulta->execute(
       array(
-        $registro['razonsocial'],
-        $registro['ruc'],
+        $registro['clasificacion'],
+        $registro['nombre'],
+        $registro['apellidos'],
         $registro['telefono'],
-        $registro['origen'],
-        $registro['contacto'],
-        $registro['confianza'],
+        $registro['direccion'],
+        $registro['ingreso'],
         $registro['id']
       )
     );
@@ -91,7 +90,7 @@ public function actualizar($registro = []):int{
 }
 public function eliminar($id){
     try{
-    $sql="DELETE FROM proveedores WHERE id=?";
+    $sql="DELETE FROM personas WHERE id=?";
 
 $consulta = $this->pdo->prepare($sql);
 //El execute() esta vacio cuando no utilizamos comodines

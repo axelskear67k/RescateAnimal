@@ -1,6 +1,6 @@
 <?php
 require_once 'Conexion.php';
-class Producto extends Conexion{
+class Animales extends Conexion{
 //Este atributo contendra la conexion que iniciamos en class Producto extends Conexion
 private $pdo;
 
@@ -15,8 +15,8 @@ try{
   // 1 Crear mi consulta sql
 $sql = "
 SELECT 
-id,classificacion, marca, descripcion, garantia, ingreso, cantidad
- FROM productos
+id,classificacion,nombre, especie,raza,genero,condiciones,vacunas,estado,ingreso,created,updated
+ FROM animales
  ORDER BY id DESC";
 //2 Enviar la consulta preparada a PDO
 $consulta = $this->pdo->prepare($sql);
@@ -39,9 +39,9 @@ public function registrar($registro = []):int{
   try{
     //los comodines, poseen indices (arreglos)
     $sql="
-    INSERT INTO productos 
-    (classificacion, marca, descripcion, garantia, ingreso, cantidad) VALUES
-     (?,?,?,?,?,?)
+    INSERT INTO animales 
+    (classificacion,nombre, especie,raza,genero,condiciones,vacunas,estado,ingreso) VALUES
+     (?,?,?,?,?,?,?,?,?)
      ";
 //2 Enviar la consulta preparada a PDO
 $consulta = $this->pdo->prepare($sql);
@@ -49,14 +49,15 @@ $consulta = $this->pdo->prepare($sql);
 $consulta->execute(
 array(
 $registro ['classificacion'],
-$registro ['marca'],
-$registro ['descripcion'],
-$registro ['garantia'],
-$registro ['ingreso'],
-$registro ['cantidad']
-
+$registro ['nombre'],
+$registro ['especie'],
+$registro ['raza'],
+$registro ['genero'],
+$registro ['condiciones'],
+$registro ['vacunas'],
+$registro ['estado'],
+$registro ['ingreso']
 )
-
 );
 //¡Cuantos registros fueron afectados
 return $consulta->rowCount();
@@ -73,8 +74,8 @@ return $consulta->rowCount();
 
 public function eliminar($id):int{
   try{
-    $sql="DELETE FROM productos WHERE id=?";
-
+    $sql="DELETE FROM animales WHERE id=?";
+    
 $consulta = $this->pdo->prepare($sql);
 //El execute() esta vacio cuando no utilizamos comodines
 $consulta->execute(
@@ -94,14 +95,17 @@ public function actualizar($registro = []):int{
   try{
     //los comodines, poseen indices (arreglos)
     $sql="
-    UPDATE productos SET
+    UPDATE animales SET
     classificacion = ?,
-    marca = ?,
-    descripcion = ?,
-    garantia = ?,
-    ingreso = ?,
-    cantidad = ?,
-    updated = NOW()
+    nombre         = ?,
+    especie        = ?,
+    raza           = ?,
+    genero         = ?,
+    condiciones    = ?,
+    vacunas        = ?,
+    estado         = ?,
+    ingreso        = ?,
+    updated        = NOW()
     WHERE id = ?
 ";
 //2 Enviar la consulta preparada a PDO
@@ -110,17 +114,20 @@ $consulta = $this->pdo->prepare($sql);
 $consulta->execute(
 array(
 $registro ['classificacion'],
-$registro ['marca'],
-$registro ['descripcion'],
-$registro ['garantia'],
+$registro ['nombre'],
+$registro ['especie'],
+$registro ['raza'],
+$registro ['genero'],
+$registro ['condiciones'],
+$registro ['vacunas'],
+$registro ['estado'],
 $registro ['ingreso'],
-$registro ['cantidad'],
 $registro ['id']
 )
 
 );
 //retornar la Primary Key generada
-return $this->pdo->lastInsertId();
+ return $consulta->rowCount();
 
 
   }
@@ -135,7 +142,7 @@ return $this->pdo->lastInsertId();
 public function buscar($registros = []):array{ 
 try{
   // 1 Crear mi consulta sql
-$sql = " SELECT * FROM productos WHERE id = ?";
+$sql = " SELECT * FROM animales WHERE id = ?";
 //2 Enviar la consulta preparada a PDO
 $consulta = $this->pdo->prepare($sql);
 

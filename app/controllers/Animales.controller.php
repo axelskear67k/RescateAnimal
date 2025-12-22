@@ -1,8 +1,8 @@
 <?php
 
 //necesita del modelo para poder responder...
-require_once '../models/Producto.php';
-$producto = new Producto();
+require_once '../../models/Animales.php';
+$animales = new Animales();
 
 //¿Que operacion desea realizar el usuario?
 //consulta, registro, actualizar, eliminar, buscar ¿?
@@ -15,10 +15,8 @@ if (isset($_POST ['operacion'])){
     switch($_POST['operacion']){
         case 'listar':
             //codigo para listar
-            $registros = $producto->listar();
-            //JSON : Javascript Object Notation
-            //Es un mecanismo de intercambio de datos entre el servidor y el cliente
-            echo json_decode($registros);
+            $registros = $animales->listar();
+require_once '../../views/animales/listar.php';
             break;
         case 'registrar':
             //codigo para registrar
