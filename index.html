@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Profesional - Gestión de Animales y Personas</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<style>
+  body {
+    background: linear-gradient(160deg, #0d6efd, #6f42c1);
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+  }
+
+  .container {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .dashboard-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+
+  .card-dashboard {
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card-dashboard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    background-color: rgba(255,255,255,0.2);
+  }
+
+  .card-dashboard h4 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  .card-dashboard p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #e0e0e0;
+  }
+
+  .btn-dashboard {
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn-dashboard:hover {
+    transform: scale(1.1);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 35px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+
+  @media(max-width:768px){
+    .card-dashboard {
+      padding: 30px 15px;
+    }
+    .dashboard-title {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="dashboard-title">¡BIENVENIDOS A MUNDO PERRUNO!</h1>
+
+  <!-- Animales -->
+  <h3 class="section-title">Animales</h3>
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card-dashboard">
+        <h4><i class="bi bi-plus-square-fill"></i> Registrar</h4>
+        <p>Agregar un nuevo animal al sistema de manera rápida y eficiente.</p>
+        <a href="./views/productos/crear.php" class="btn btn-success btn-dashboard">Abrir</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card-dashboard">
+        <h4><i class="bi bi-search"></i> Consultar</h4>
+        <p>Buscar animales por ID o filtrar por estado fácilmente.</p>
+        <a href="./views/productos/buscar.php" class="btn btn-primary btn-dashboard">Abrir</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card-dashboard">
+        <h4><i class="bi bi-card-list"></i> Lista</h4>
+        <p>Visualizar todos los animales registrados en un formato moderno.</p>
+        <a href="./views/productos/listar.php" class="btn btn-info btn-dashboard">Abrir</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Personas -->
+  <h3 class="section-title">Personas</h3>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card-dashboard">
+        <h4><i class="bi bi-person-plus-fill"></i> Registrar</h4>
+        <p>Agregar nuevas personas al sistema de forma rápida y segura.</p>
+        <a href="./views/productos/crearp.php" class="btn btn-success btn-dashboard">Abrir</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card-dashboard">
+        <h4><i class="bi bi-search"></i> Consultar</h4>
+        <p>Buscar personas por ID o filtrar por clasificación fácilmente.</p>
+        <a href="./views/productos/buscarp.php" class="btn btn-primary btn-dashboard">Abrir</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card-dashboard">
+        <h4><i class="bi bi-card-list"></i> Lista</h4>
+        <p>Ver todas las personas registradas en un formato moderno y ordenado.</p>
+        <a href="./views/productos/listarp.php" class="btn btn-info btn-dashboard">Abrir</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

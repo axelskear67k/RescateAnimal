@@ -15,13 +15,13 @@ try{
   // 1 Crear mi consulta sql
 $sql = "
 SELECT 
-id,classificacion,nombre, especie,raza,genero,condiciones,vacunas,estado,ingreso,created,updated
+id,clasificacion,nombre, especie,raza,genero,condiciones,vacunas,estado,ingreso,foto,created,updated
  FROM animales
  ORDER BY id DESC";
 //2 Enviar la consulta preparada a PDO
 $consulta = $this->pdo->prepare($sql);
 
-//3 Ejecutar la consulta}
+//3 Ejecutar la consulta
 $consulta->execute();
 
 //4 Entregar resultado
@@ -40,7 +40,7 @@ public function registrar($registro = []):int{
     //los comodines, poseen indices (arreglos)
     $sql="
     INSERT INTO animales 
-    (classificacion,nombre, especie,raza,genero,condiciones,vacunas,estado,ingreso) VALUES
+    (clasificacion,nombre, especie,raza,genero,condiciones,vacunas,estado,ingreso) VALUES
      (?,?,?,?,?,?,?,?,?)
      ";
 //2 Enviar la consulta preparada a PDO
@@ -48,7 +48,7 @@ $consulta = $this->pdo->prepare($sql);
 //3 La consulta lleva comodines, pasamos los datos en execute()
 $consulta->execute(
 array(
-$registro ['classificacion'],
+$registro ['clasificacion'],
 $registro ['nombre'],
 $registro ['especie'],
 $registro ['raza'],
@@ -96,7 +96,7 @@ public function actualizar($registro = []):int{
     //los comodines, poseen indices (arreglos)
     $sql="
     UPDATE animales SET
-    classificacion = ?,
+    clasificacion = ?,
     nombre         = ?,
     especie        = ?,
     raza           = ?,
@@ -113,7 +113,7 @@ $consulta = $this->pdo->prepare($sql);
 //3 La consulta lleva comodines, pasamos los datos en execute()
 $consulta->execute(
 array(
-$registro ['classificacion'],
+$registro ['clasificacion'],
 $registro ['nombre'],
 $registro ['especie'],
 $registro ['raza'],
@@ -139,7 +139,7 @@ $registro ['id']
 
 }
 
-public function buscar($registros = []):array{ 
+public function buscarPorID(int $id):array{ 
 try{
   // 1 Crear mi consulta sql
 $sql = " SELECT * FROM animales WHERE id = ?";
@@ -148,7 +148,7 @@ $consulta = $this->pdo->prepare($sql);
 
 //3 Ejecutar la consulta}
 $consulta->execute(
-  array($registros)
+  array($id)
 );
 
 //4 Entregar resultado
@@ -157,9 +157,26 @@ $consulta->execute(
 return $consulta->fetchAll(PDO::FETCH_ASSOC);
 }
 catch(Exception $e){
-  return [];
+  die($e->getMessage());
 }
-  
+}
+public function buscarPorEstado(string $estado){
+  try{
+    //crear Consulta SQL
+    $sql="SELECT * FROM animales WHERE estado =?";
+    //Enviar consulta preparada a PDO
+    $consulta = $this->pdo->prepare($sql);
+    //Ejecucion
+    $consulta -> execute(array($estado));
 
+    //resultados
+    //fetchAll (Coleccion de arreglos, los retorna)
+    //FETCH_ASSOC formateo como arreglos
+    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  }
+  catch(Exception $e){
+    die($e->getMessage());
+
+  }
 }
 }

@@ -1,31 +1,66 @@
 <?php
 
-//necesita del modelo para poder responder...
-require_once '../../models/Animales.php';
+require_once '../models/Animales.php';
 $animales = new Animales();
 
-//¿Que operacion desea realizar el usuario?
-//consulta, registro, actualizar, eliminar, buscar ¿?
+if (isset($_POST['operacion'])){
 
-//isset es una funcion que determina si un ibjeto existe o fue definido
-//$_POST[''] permite interactuar con valores que envia la vista a traves de un metodo POST
-if (isset($_POST ['operacion'])){
-
-    //El usuario nos envio una tarea
     switch($_POST['operacion']){
+
         case 'listar':
-            //codigo para listar
+            // LISTAR (incluye foto desde el modelo)
             $registros = $animales->listar();
-require_once '../../views/animales/listar.php';
+            echo json_encode($registros);
             break;
+
         case 'registrar':
-            //codigo para registrar
+            // REGISTRAR (AGREGADO: foto)
+            $datos = [
+                "clasificacion" => $_POST['clasificacion'],
+                "nombre"        => $_POST['nombre'],
+                "especie"       => $_POST['especie'],
+                "raza"          => $_POST['raza'],
+                "genero"        => $_POST['genero'],
+                "condiciones"   => $_POST['condiciones'],
+                "vacunas"       => $_POST['vacunas'],
+                "estado"        => $_POST['estado'],
+                "foto"          => $_POST['foto'],
+                "ingreso"       => date('Y-m-d')
+            ];
+
+            $idobtenido = $animales->registrar($datos);
+            echo json_encode(["id" => $idobtenido]);
             break;
+
         case 'actualizar':
-            //codigo para actualizar
+            // ACTUALIZAR (AGREGADO: foto)
+            $datos = [
+                "id"            => $_POST['id'],
+                "clasificacion" => $_POST['clasificacion'],
+                "nombre"        => $_POST['nombre'],
+                "especie"       => $_POST['especie'],
+                "raza"          => $_POST['raza'],
+                "genero"        => $_POST['genero'],
+                "condiciones"   => $_POST['condiciones'],
+                "vacunas"       => $_POST['vacunas'],
+                "estado"        => $_POST['estado'],
+                "foto"          => $_POST['foto'], // 👈 NUEVO
+                "ingreso"       => $_POST['ingreso']
+            ];
+
+            echo json_encode($animales->actualizar($datos));
             break;
+
         case 'eliminar':
-            //codigo para eliminar
+            echo json_encode($animales->eliminar($_POST['id']));
+            break;
+
+        case 'buscarPorID':
+            echo json_encode($animales->buscarPorID($_POST['id']));
+            break;
+
+        case 'buscarPorEstado':
+            echo json_encode($animales->buscarPorEstado($_POST['estado']));
             break;
     }
 }
