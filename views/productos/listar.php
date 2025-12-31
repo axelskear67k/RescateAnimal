@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         grid.innerHTML += `
           <div class="col-md-4 mb-4">
             <div class="card card-animal shadow-sm">
-              <img src="/animal/public/images/${animal.foto}" class="card-img-top" alt="${animal.nombre}">
+              <img src="/animal/public/images/${animal.foto}?t=${new Date().getTime()}" class="card-img-top" alt="${animal.nombre}">
               <div class="card-body">
                 <h5 class="card-title">${animal.nombre}</h5>
                 <p><strong>Clasificación:</strong> ${animal.clasificacion}</p>
